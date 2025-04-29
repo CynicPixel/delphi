@@ -1,0 +1,22 @@
+# Level:  1 _____________________________________
+   0 False    0 /0                         1 True
+   1 False    0 /1                         1 True
+# Level:  2 _____________________________________
+   0 False    2 /1           1 0x1         3 True
+   0 False    4 1x1          1 0x1         5 True
+   1 False    2 /0           1 1x1         3 True
+# Level:  3 _____________________________________
+   1 False    4 0x3          3 1x3         5 True
+
+Metrics
+-------
+Primary Inputs    : 2
+Levels            : 3
+Read Operations   : 4
+Write Operations  : 9
+Evaluation Cycles : 4
+Total Cycles      : 17
+Crossbar Size     : 2x7
+---------------------------
+
+

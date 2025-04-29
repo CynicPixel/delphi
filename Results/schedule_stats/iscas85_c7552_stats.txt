@@ -1,0 +1,27 @@
+ASAP SCHEDULE:
+=============
+Gate distribution across levels:
+  222 192 139 220 270 151 226 177 175 139 118 99 83 81 79 76 53 50 46 33 50 46 57 41 40 36 43 47 45 49 50 41 44 35 28 33 21 18 11 8 11 6 5 1
+Number of levels: 44, MaxGates: 270
+Number of memristors: 761
+Time steps (serial): 3439, Time steps (parallel): 88
+Crossbar size (serial): 270 x 3
+Crossbar size (parallel): 270 x 761
+ALAP SCHEDULE:
+=============
+Gate distribution across levels:
+  8 17 30 37 68 91 127 134 131 132 145 147 143 159 168 184 191 197 213 230 241 186 155 102 55 100
+Number of levels: 26, MaxGates: 241
+Number of memristors: 681
+Time steps (serial): 3421, Time steps (parallel): 52
+Crossbar size (serial): 241 x 3
+Crossbar size (parallel): 241 x 681
+LIST SCHEDULE:
+=============
+Gate distribution across levels:
+  0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+Number of levels: -1, MaxGates: 0
+Number of memristors: 0
+Time steps (serial): 3394, Time steps (parallel): -2
+Crossbar size (serial): 0 x 3
+Crossbar size (parallel): 0 x 0

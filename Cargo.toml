@@ -1,0 +1,21 @@
+[package]
+name = "delphi"
+version = "0.1.0"
+edition = "2021"
+authors = ["Delphi Team"]
+description = "Optimized NOR-to-crossbar mapper for memristor crossbar arrays"
+
+[dependencies]
+clap = { version = "4.4", features = ["derive"] }
+regex = "1.10"
+itertools = "0.12"
+anyhow = "1.0"
+thiserror = "1.0"
+log = "0.4"
+env_logger = "0.10"
+rayon = "1.8"   # Parallel processing library
+dashmap = "5.5" # Thread-safe HashMap
+crossbeam = "0.8" # Parallel primitives
+parking_lot = "0.12" # More efficient lock implementations
+num_cpus = "1.16"    # CPU core detection
+rand = "0.8"      # Utility for consistent results
