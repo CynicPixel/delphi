@@ -1,3 +1,4 @@
+//parallel/mod.rs
 use crate::{Circuit, TableGate, MemristiveGate, CrossbarMapping, MAX_GATES, 
             MAX_COL, MAX_ROW, MAX_LEVELS};
 use anyhow::Result;

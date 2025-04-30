@@ -1,6 +1,7 @@
+//scheduler/mod.rs
 use crate::Circuit;
-use crate::TableGate;
-use std::collections::HashMap;
+// use crate::TableGate;
+// use std::collections::HashMap;
 
 // Scheduling algorithms
 pub fn compute_asap_schedule(circuit: &mut Circuit) {
@@ -118,20 +119,20 @@ fn get_asap_level(circuit: &Circuit, line_id: i32) -> i32 {
     -1
 }
 
-fn get_alap_level(circuit: &Circuit, line_id: i32) -> i32 {
-    if is_po(circuit, line_id) {
-        return 0;
-    }
+// fn get_alap_level(circuit: &Circuit, line_id: i32) -> i32 {
+//     if is_po(circuit, line_id) {
+//         return 0;
+//     }
     
-    for i in 0..circuit.num_gates {
-        if circuit.gates[i].out == line_id {
-            return circuit.gates[i].alap_level;
-        }
-    }
+//     for i in 0..circuit.num_gates {
+//         if circuit.gates[i].out == line_id {
+//             return circuit.gates[i].alap_level;
+//         }
+//     }
     
-    // Error case
-    -1
-}
+//     // Error case
+//     -1
+// }
 
 fn get_list_level(circuit: &Circuit, line_id: i32) -> i32 {
     if is_pi(circuit, line_id) {

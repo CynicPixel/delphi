@@ -1,3 +1,4 @@
+//parser/mod.rs
 mod parsers;
 
 use std::path::Path;
@@ -148,70 +149,33 @@ pub fn parse_netlist<P: AsRef<Path>>(path: P, circuit: &mut Circuit) -> Result<(
 
 fn extract_variables(line: &str) -> Result<Vec<i32>> {
     let mut var_ids = Vec::new();
-    
-    // Count variables first
-    let var_count = count_variables(line);
-    
-    if var_count == 0 {
-        return Ok(var_ids);
+
+    // Split line at '='
+    let (left, right) = match line.find('=') {
+        Some(eq) => (&line[..eq].trim(), &line[eq+1..].trim()),
+        None => return Ok(var_ids),
+    };
+
+    // Output variable (left)
+    let output_re = Regex::new(r"([nx])(\d+)").unwrap();
+    if let Some(cap) = output_re.captures(left) {
+        let prefix = &cap[1];
+        let id: i32 = cap[2].parse().unwrap();
+        let var_id = if prefix == "x" { MAX_GATES as i32 + id } else { id };
+        var_ids.push(var_id);
     }
-    
-    // Create improved regexes to extract variables
-    let x_regex = Regex::new(r"x(\d+)").unwrap();
-    let n_regex = Regex::new(r"n(\d+)").unwrap();
-    
-    // Split the line into left and right sides
-    if let Some(equals_pos) = line.find('=') {
-        let left_side = &line[0..equals_pos].trim();
-        let right_side = &line[equals_pos+1..].trim();
-        
-        // Process the left-hand side (output variable)
-        let mut left_var_ids = Vec::new();
-        for cap in n_regex.captures_iter(left_side) {
-            if let Some(id_match) = cap.get(1) {
-                if let Ok(id) = id_match.as_str().parse::<i32>() {
-                    left_var_ids.push(id);
-                }
-            }
-        }
-        
-        if !left_var_ids.is_empty() {
-            var_ids.push(left_var_ids[0]);
-        }
-        
-        // Process the right-hand side (input variables)
-        for cap in x_regex.captures_iter(right_side) {
-            if let Some(id_match) = cap.get(1) {
-                if let Ok(id) = id_match.as_str().parse::<i32>() {
-                    var_ids.push(MAX_GATES as i32 + id);
-                }
-            }
-        }
-        
-        // Process internal n variables on the right side
-        for cap in n_regex.captures_iter(right_side) {
-            if let Some(id_match) = cap.get(1) {
-                if let Ok(id) = id_match.as_str().parse::<i32>() {
-                    var_ids.push(id);
-                }
-            }
-        }
+
+    // Input variables (right), preserve order!
+    for cap in output_re.captures_iter(right) {
+        let prefix = &cap[1];
+        let id: i32 = cap[2].parse().unwrap();
+        let var_id = if prefix == "x" { MAX_GATES as i32 + id } else { id };
+        var_ids.push(var_id);
     }
-    
+
     Ok(var_ids)
 }
 
-fn count_variables(line: &str) -> usize {
-    let mut count = 0;
-    
-    for c in line.chars() {
-        if c == 'n' || c == 'x' {
-            count += 1;
-        }
-    }
-    
-    count
-}
 
 pub fn find_primary_inputs(circuit: &mut Circuit) {
     // Reset primary inputs

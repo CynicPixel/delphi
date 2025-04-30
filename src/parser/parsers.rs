@@ -1,3 +1,4 @@
+//parser/parsers.rs
 use std::path::Path;
 
 pub fn extract_bench_name<P: AsRef<Path>>(path: P) -> String {

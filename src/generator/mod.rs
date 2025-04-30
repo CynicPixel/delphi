@@ -1,5 +1,6 @@
+//generator/mod.rs
 use std::fs::File;
-use std::io::{self, Write};
+use std::io::Write;
 use std::path::Path;
 use std::cmp::max;
 use anyhow::{Result, Context};
@@ -132,68 +133,114 @@ where
 }
 
 pub fn generate_magic_verilog<P: AsRef<Path>>(circuit: &Circuit, path: P) -> Result<()> {
+    //println!("[VERILOG] Opening file: {:?}", path.as_ref());
     let mut file = File::create(path)
         .context("Failed to create Verilog file")?;
-    
+    //println!("[VERILOG] File opened successfully.");
+
     // Sort gates by ASAP level for correct ordering
+    //println!("[VERILOG] Sorting gates by ASAP level...");
     let mut sorted_gates = circuit.gates.clone();
     sorted_gates.sort_by(|a, b| a.asap_level.cmp(&b.asap_level));
-    
+    //println!("[VERILOG] Gates sorted. Total gates: {}", sorted_gates.len());
+
     // Generate verilog header with bench name (following C format)
     writeln!(file, "// NOR_NOT mapped module module_name\n")?;
-    
+    //println!("[VERILOG] Wrote header comment.");
+
     // Module declaration - use module_name like the C implementation
     writeln!(file, "module module_name (")?;
-    
+    //println!("[VERILOG] Wrote module declaration.");
+
     // Inputs - use ip_X format like the C implementation 
-    for i in 0..(circuit.num_inputs-1) {
+    //println!("[VERILOG] Declaring {} inputs...", circuit.num_inputs);
+    if circuit.num_inputs == 0 {
+        println!("[VERILOG][WARNING] No inputs detected!");
+    }
+    for i in 0..(circuit.num_inputs.saturating_sub(1)) {
         writeln!(file, "  input  ip_{},", i + 1)?;
     }
-    writeln!(file, "  input  ip_{},", circuit.num_inputs)?;
-    
+    if circuit.num_inputs > 0 {
+        writeln!(file, "  input  ip_{},", circuit.num_inputs)?;
+    }
+    //println!("[VERILOG] Inputs declared.");
+
     // Outputs - use op_X format like the C implementation
-    for i in 0..(circuit.num_outputs-1) {
+    //println!("[VERILOG] Declaring {} outputs...", circuit.num_outputs);
+    if circuit.num_outputs == 0 {
+        println!("[VERILOG][WARNING] No outputs detected!");
+    }
+    for i in 0..(circuit.num_outputs.saturating_sub(1)) {
         writeln!(file, "  output op_{},", i + 1)?;
     }
-    writeln!(file, "  output op_{}\n);", circuit.num_outputs)?;
-    
+    if circuit.num_outputs > 0 {
+        writeln!(file, "  output op_{}\n);", circuit.num_outputs)?;
+    }
+    //println!("[VERILOG] Outputs declared.");
+
     // Internal wires
     writeln!(file)?;
-    for i in circuit.num_outputs+1..=circuit.num_gates {
+    // println!(
+    //     "[VERILOG] Declaring internal wires for indices {} to {}...",
+    //     circuit.num_outputs + 1,
+    //     circuit.num_gates
+    // );
+    // if circuit.num_gates < circuit.num_outputs + 1 {
+    //     println!(
+    //         "[VERILOG][WARNING] num_gates < num_outputs+1: {} < {}",
+    //         circuit.num_gates,
+    //         circuit.num_outputs + 1
+    //     );
+    // }
+    for i in (circuit.num_outputs + 1)..=circuit.num_gates {
         writeln!(file, "  wire wr_{};", i)?;
     }
     writeln!(file)?;
-    
+    //println!("[VERILOG] Internal wires declared.");
+
     // Generate gate instances
+    //println!("[VERILOG] Generating gate instances...");
     for (i, gate) in sorted_gates.iter().enumerate() {
         let gate_name = format!("g{}", i + 1);
-        
+
+        // println!(
+        //     "[VERILOG] Gate {}: fanin={}, out={}, inputs={:?}",
+        //     gate_name, gate.fanin, gate.out, gate.inputs
+        // );
+
         if gate.fanin == 1 {
             // NOT gate
             let ip1 = gate.inputs[0];
-            
-            writeln!(file, "  not    {}( {} ,           {} );",
+            writeln!(
+                file,
+                "  not    {}( {} ,           {} );",
                 format!("{:<5}", gate_name),
                 format_wire(gate.out),
-                format_wire(ip1))?;
+                format_wire(ip1)
+            )?;
         } else {
             // NOR gate
             let ip1 = gate.inputs[0];
             let ip2 = gate.inputs[1];
-            
-            writeln!(file, "  nor    {}( {} , {} , {} );",
+            writeln!(
+                file,
+                "  nor    {}( {} , {} , {} );",
                 format!("{:<5}", gate_name),
                 format_wire(gate.out),
                 format_wire(ip1),
-                format_wire(ip2))?;
+                format_wire(ip2)
+            )?;
         }
     }
-    
+    //println!("[VERILOG] All gate instances written.");
+
     // Module end
     writeln!(file, "\nendmodule")?;
-    
+    //println!("[VERILOG] Wrote endmodule. Verilog generation complete.");
+
     Ok(())
 }
+
 
 fn format_wire(id: i32) -> String {
     if id >= MAX_GATES as i32 {

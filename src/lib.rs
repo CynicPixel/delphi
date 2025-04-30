@@ -1,3 +1,4 @@
+//lib.rs
 pub mod parser;
 pub mod scheduler;
 pub mod mapper;
@@ -40,9 +41,9 @@ pub mod parallel {
     }
 }
 
-use std::collections::HashMap;
-use std::sync::Arc;
-use parking_lot::{RwLock, Mutex};
+// use std::collections::HashMap;
+// use std::sync::Arc;
+// use parking_lot::{RwLock, Mutex};
 
 pub const MAX_GATES: usize = 8000;     // Good for circuits up to 8000 gates
 pub const MAX_FANIN: usize = 5;       // Maximum fanin of gates
