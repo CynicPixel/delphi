@@ -73,10 +73,10 @@ OPTIONS:
 #### Windows
 ```powershell
 # Basic usage
-.\delphi.exe process <NETLIST>
+.\delphi process <NETLIST>
 
 # With options
-.\delphi.exe process <NETLIST> --output <DIR> --disable-parallel
+.\delphi process <NETLIST> --output <DIR> --disable-parallel
 ```
 
 #### macOS/Linux
@@ -96,10 +96,10 @@ OPTIONS:
 #### Example (Windows):
 ```powershell
 # Process c17 benchmark with parallel processing
-.\delphi.exe process C:\path\to\BENCH\netlist\iscas85_c17.txt
+.\delphi process C:\path\to\BENCH\netlist\iscas85_c17.txt
 
 # Process with custom output directory and sequential processing
-.\delphi.exe process C:\path\to\BENCH\netlist\iscas85_c17.txt -o .\my_results --disable-parallel
+.\delphi process C:\path\to\BENCH\netlist\iscas85_c17.txt -o .\my_results --disable-parallel
 ```
 
 ### Processing a Benchmark Suite
@@ -110,7 +110,7 @@ OPTIONS:
 .\delphi.exe bench <DIR>
 
 # With options
-.\delphi.exe bench <DIR> --output <OUTPUT_DIR> --pattern <PATTERN> --disable-parallel
+.\delphi bench <DIR> --output <OUTPUT_DIR> --pattern <PATTERN> --disable-parallel
 ```
 
 #### macOS/Linux
@@ -131,10 +131,10 @@ OPTIONS:
 #### Example (Windows):
 ```powershell
 # Process all benchmarks in a directory
-.\delphi.exe bench C:\path\to\BENCH\netlist\
+.\delphi bench C:\path\to\BENCH\netlist\
 
 # Process only iscas85 benchmarks
-.\delphi.exe bench C:\path\to\BENCH\netlist\ -p iscas85
+.\delphi bench C:\path\to\BENCH\netlist\ -p iscas85
 ```
 
 ### Running Performance Benchmarks
@@ -142,10 +142,10 @@ OPTIONS:
 #### Windows
 ```powershell
 # Basic usage
-.\delphi.exe benchmark <NETLIST>
+.\delphi benchmark <NETLIST>
 
 # With options
-.\delphi.exe benchmark <NETLIST> --iterations <ITERATIONS>
+.\delphi benchmark <NETLIST> --iterations <ITERATIONS>
 ```
 
 #### macOS/Linux
@@ -164,10 +164,10 @@ OPTIONS:
 #### Example (Windows):
 ```powershell
 # Benchmark c17 with default iterations
-.\delphi.exe benchmark C:\path\to\BENCH\netlist\iscas85_c17.txt
+.\delphi benchmark C:\path\to\BENCH\netlist\iscas85_c17.txt
 
 # Benchmark with 10 iterations
-.\delphi.exe benchmark C:\path\to\BENCH\netlist\iscas85_c17.txt -i 10
+.\delphi benchmark C:\path\to\BENCH\netlist\iscas85_c17.txt -i 10
 ```
 
 ## Output Files
@@ -246,10 +246,10 @@ Delphi supports parallel processing to speed up computations for larger circuits
 
 ```powershell
 # Enable parallel processing (default)
-.\delphi.exe process <NETLIST>
+.\delphi process <NETLIST>
 
 # Disable parallel processing
-.\delphi.exe process <NETLIST> --disable-parallel
+.\delphi process <NETLIST> --disable-parallel
 ```
 
 The parallel implementation:
@@ -264,10 +264,10 @@ You can process specific benchmark types or patterns:
 
 ```powershell
 # Process only iscas85 benchmarks
-.\delphi.exe bench C:\path\to\benchmarks -p iscas85
+.\delphi bench C:\path\to\benchmarks -p iscas85
 
 # Process only c17 benchmark variants
-.\delphi.exe bench C:\path\to\benchmarks -p c17
+.\delphi bench C:\path\to\benchmarks -p c17
 ```
 
 ### Performance Benchmarking
@@ -275,7 +275,7 @@ You can process specific benchmark types or patterns:
 Compare sequential and parallel implementations:
 
 ```powershell
-.\delphi.exe benchmark <NETLIST> -i 5
+.\delphi benchmark <NETLIST> -i 5
 ```
 
 This will:
@@ -323,7 +323,7 @@ Solution: Verify that the netlist file follows the required format for NOT/NOR g
 
 ```powershell
 # Process a single benchmark
-.\delphi.exe process C:\path\to\BENCH\netlist\iscas85_c17.txt
+.\delphi process C:\path\to\BENCH\netlist\iscas85_c17.txt
 
 # View the statistics
 type Results\schedule_stats\iscas85_c17_stats.txt
@@ -339,14 +339,14 @@ type Results\magic\iscas85_c17_magic.v
 mkdir my_results
 
 # Process all iscas benchmarks
-.\delphi.exe bench C:\path\to\BENCH\netlist -p iscas -o my_results
+.\delphi bench C:\path\to\BENCH\netlist -p iscas -o my_results
 ```
 
 ### Performance Comparison (Windows)
 
 ```powershell
 # Detailed benchmark with 5 iterations
-.\delphi.exe benchmark C:\path\to\BENCH\netlist\iscas85_c7552.txt -i 5
+.\delphi benchmark C:\path\to\BENCH\netlist\iscas85_c7552.txt -i 5
 ```
 
 ## Contributing
